@@ -1,0 +1,12 @@
+@mixin h1 {
+  font-size: 1.8rem;
+  line-height: 1.25;
+  font-weight: bold;
+}
+
+@mixin outline-button($main-color, $font-color: $font-button-color) {
+  border: 0.1px solid $main-color;
+  color: $font-color;
+  background: transparent;
+  border-style: solid;
+}

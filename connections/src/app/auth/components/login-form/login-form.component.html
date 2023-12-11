@@ -1,0 +1,41 @@
+<div class="content">
+  <div class="content-description">
+    <h2 class="content-heading">Sign in to Connectify</h2>
+    <p class="content-redirect">New user? <a class="content-link" routerLink="/signup">Create an account</a></p>
+  </div>
+
+  <form class="content-form" [formGroup]="formGroup">
+    <div class="input">
+      <input [ngClass]="{'input-field_error': email.errors && (email.touched || email.dirty)}"
+             class="input-field"
+             formControlName="email"
+             name="email"
+             placeholder="Email address">
+      <div class="input-error" *ngIf="email.errors && (email.touched || email.dirty)">
+        {{email.hasError('required') ? 'Email is required.' : null}}
+        {{email.hasError('email') ? "Should be a valid email." : null}}
+      </div>
+    </div>
+    <div class="input">
+      <input [ngClass]="{'input-field_error': password.errors && (password.touched || password.dirty)}"
+             type="password"
+             class="input-field"
+             formControlName="password"
+             name="password"
+             placeholder="Password">
+      <div class="input-error" *ngIf="password.errors && (password.touched || password.dirty)">
+        {{password.hasError('required') ? 'Password is required.' : null}}
+      </div>
+    </div>
+
+
+    <app-button 
+      large
+      type="button"
+      (click)="submitForm()"
+      [disabled]="!formGroup.valid || loginButtonDisabled || (loading$ | async)"
+    >
+      Login
+    </app-button>
+  </form>
+</div>

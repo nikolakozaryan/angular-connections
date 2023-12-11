@@ -1,0 +1,23 @@
+@import 'variables';
+
+.header {
+  height: 8rem;
+  background: $bg-color-content;
+
+  &-container {
+    max-width: 1440px;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 $main-padding-x;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &-actions {
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+  }
+}

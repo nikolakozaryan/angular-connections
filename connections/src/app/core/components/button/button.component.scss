@@ -1,0 +1,56 @@
+@import 'variables';
+@import 'mixins';
+
+.button {
+  border: none;
+  padding: 0.6rem 1.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.8rem;
+  cursor: pointer;
+
+  color: $font-button-color;
+  font-weight: bold;
+  font-size: 1.6rem;
+  line-height: 1.5;
+
+  transition: 0.3s;
+
+  &:hover {
+    filter: brightness(1.2);
+  }
+
+  &:disabled {
+    cursor: default;
+    filter: grayscale(1);
+
+    :hover {
+      filter: none;
+    }
+  }
+}
+
+.primary {
+  background: $primary;
+
+  &.outline {
+    @include outline-button($primary, $primary)
+  }
+}
+
+.error {
+  background: $error;
+
+  &.outline {
+    @include outline-button($error, $error)
+  }
+}
+
+.large {
+  width: 100%;
+  padding-top: 1.2rem;
+  padding-bottom: 1.2rem;
+  font-size: 1.5rem;
+  line-height: 2.6rem;
+}

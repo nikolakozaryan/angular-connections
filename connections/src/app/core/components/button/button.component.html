@@ -1,0 +1,12 @@
+<button type="button"
+        [disabled]="disabled"
+        [routerLink]="link"
+        [ngClass]="{
+                        'button': true,
+                        'outline': outline,
+                        'large': large,
+                        'primary': theme === 'primary',
+                        'error': theme === 'error'
+                    }">
+  <ng-content></ng-content>
+</button>
