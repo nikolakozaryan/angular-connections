@@ -16,10 +16,10 @@ import {
   signupFailed,
   signupStart,
   signupSuccess,
-} from "./auth.actions";
+} from "./profile.actions";
 
 @Injectable()
-export default class AuthEffects {
+export default class ProfileEffects {
   constructor(
     private actions$: Actions,
     private authService: AuthService,

@@ -1,13 +1,14 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ThemeTogglerComponent } from './components/theme-toggler/theme-toggler.component';
-import { LogoComponent } from './components/logo/logo.component';
-import { ButtonComponent } from '../button/button.component';
-import { Store } from '@ngrx/store';
-import { selectIsAuthorized } from '@auth/store/auth.selectors';
+import { CommonModule } from "@angular/common";
+import { ChangeDetectionStrategy, Component } from "@angular/core";
+import { selectIsAuthorized } from "@auth/store/auth.selectors";
+import { Store } from "@ngrx/store";
+
+import { ButtonComponent } from "../button/button.component";
+import { LogoComponent } from "./components/logo/logo.component";
+import { ThemeTogglerComponent } from "./components/theme-toggler/theme-toggler.component";
 
 @Component({
-  selector: 'app-header',
+  selector: "app-header",
   standalone: true,
   imports: [
     CommonModule,
@@ -15,8 +16,8 @@ import { selectIsAuthorized } from '@auth/store/auth.selectors';
     LogoComponent,
     ButtonComponent,
   ],
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
+  templateUrl: "./header.component.html",
+  styleUrls: ["./header.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent {

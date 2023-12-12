@@ -1,27 +1,27 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule } from "@angular/common";
+import { ChangeDetectionStrategy, Component } from "@angular/core";
 import {
-  FormGroup,
   FormBuilder,
   FormControl,
-  Validators,
+  FormGroup,
   ReactiveFormsModule,
-} from '@angular/forms';
-import { signinFailed, signinStart } from '@auth/store/auth.actions';
-import { selectLoading } from '@auth/store/auth.selectors';
-import { Actions, ofType } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
-import { merge, switchMap, takeUntil } from 'rxjs';
-import { RouterModule } from '@angular/router';
-import { ButtonComponent } from '@core/components/button/button.component';
-import { Destroy } from '@core/models/classes/destroy';
+  Validators,
+} from "@angular/forms";
+import { RouterModule } from "@angular/router";
+import { signinFailed, signinStart } from "@auth/store/auth.actions";
+import { selectLoading } from "@auth/store/auth.selectors";
+import { ButtonComponent } from "@core/components/button/button.component";
+import { Destroy } from "@core/models/classes/destroy";
+import { Actions, ofType } from "@ngrx/effects";
+import { Store } from "@ngrx/store";
+import { merge, switchMap, takeUntil } from "rxjs";
 
 @Component({
-  selector: 'app-login-form',
+  selector: "app-login-form",
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterModule, ButtonComponent],
-  templateUrl: './login-form.component.html',
-  styleUrls: ['./login-form.component.scss'],
+  templateUrl: "./login-form.component.html",
+  styleUrls: ["./login-form.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginFormComponent extends Destroy {
@@ -39,10 +39,10 @@ export class LoginFormComponent extends Destroy {
   }
 
   get email() {
-    return this.formGroup.get('email') as FormControl<string>;
+    return this.formGroup.get("email") as FormControl<string>;
   }
   get password() {
-    return this.formGroup.get('password') as FormControl<string>;
+    return this.formGroup.get("password") as FormControl<string>;
   }
 
   ngOnInit(): void {
@@ -52,7 +52,7 @@ export class LoginFormComponent extends Destroy {
       .pipe(
         ofType(signinFailed),
         switchMap(({ errorType }) => {
-          if (errorType === 'NotFoundException') {
+          if (errorType === "NotFoundException") {
             this.loginButtonDisabled = true;
           }
           return merge(
@@ -72,8 +72,8 @@ export class LoginFormComponent extends Destroy {
 
   private initForm(): void {
     this.formGroup = this.fb.nonNullable.group({
-      password: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
+      password: ["", Validators.required],
+      email: ["", [Validators.required, Validators.email]],
     });
   }
 }

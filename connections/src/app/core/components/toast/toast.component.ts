@@ -1,14 +1,14 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ToastService } from '@core/services/toast.service';
-import { Observable } from 'rxjs';
+import { CommonModule } from "@angular/common";
+import { ChangeDetectionStrategy, Component } from "@angular/core";
+import { ToastService } from "@core/services/toast.service";
+import { Observable } from "rxjs";
 
 @Component({
-  selector: 'app-toast',
+  selector: "app-toast",
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './toast.component.html',
-  styleUrls: ['./toast.component.scss'],
+  templateUrl: "./toast.component.html",
+  styleUrls: ["./toast.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ToastComponent {

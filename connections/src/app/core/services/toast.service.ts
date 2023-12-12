@@ -1,13 +1,13 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Injectable } from "@angular/core";
+import { BehaviorSubject } from "rxjs";
 
 export enum TOAST_STATE {
-  success = 'toast-success',
-  error = 'toast-error',
+  success = "toast-success",
+  error = "toast-error",
 }
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class ToastService {
   private timeout: ReturnType<typeof setTimeout>;
@@ -17,7 +17,7 @@ export class ToastService {
 
   // The message string that'll bind and display on the toast  ﻿.
   public toastMessage$: BehaviorSubject<string> = new BehaviorSubject<string>(
-    'Default Toast Message'
+    "Default Toast Message"
   );
 
   // The state that will add a style class to the component  ﻿.

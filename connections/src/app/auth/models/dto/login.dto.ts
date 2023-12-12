@@ -4,6 +4,6 @@ export interface SigninDto {
 }
 
 export interface SigninSuccessResponse {
-  token: 'string';
-  uid: 'string';
+  token: "string";
+  uid: "string";
 }

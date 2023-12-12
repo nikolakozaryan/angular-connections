@@ -1,4 +1,5 @@
-import { createReducer, on } from '@ngrx/store';
+import { createReducer, on } from "@ngrx/store";
+
 import {
   signinFailed,
   signinStart,
@@ -6,7 +7,7 @@ import {
   signupFailed,
   signupStart,
   signupSuccess,
-} from './auth.actions';
+} from "./auth.actions";
 
 export interface AuthState {
   token: string;
@@ -17,36 +18,28 @@ export interface AuthState {
 }
 
 const initialState: AuthState = {
-  token: localStorage.getItem('token') || '',
-  uid: localStorage.getItem('uid') || '',
-  email: localStorage.getItem('email') || '',
+  token: localStorage.getItem("token") || "",
+  uid: localStorage.getItem("uid") || "",
+  email: localStorage.getItem("email") || "",
   loading: false,
-  errorType: '',
+  errorType: "",
 };
 
 const authReducer = createReducer(
   initialState,
-  on(signupStart, (state) => {
-    return { ...state, loading: true };
-  }),
-  on(signupSuccess, (state) => {
-    return { ...state, loading: false };
-  }),
-  on(signupFailed, (state, { errorType }) => {
-    return { ...state, errorType, loading: false };
-  }),
-  on(signinStart, (state) => {
-    return { ...state, loading: true };
-  }),
+  on(signupStart, (state) => ({ ...state, loading: true })),
+  on(signupSuccess, (state) => ({ ...state, loading: false })),
+  on(signupFailed, (state, { errorType }) => ({ ...state, errorType, loading: false })),
+  on(signinStart, (state) => ({ ...state, loading: true })),
   on(signinSuccess, (state, { token, uid, email }) => {
-    localStorage.setItem('token', token);
-    localStorage.setItem('uid', uid);
-    localStorage.setItem('email', email);
-    return { ...state, loading: false, token, uid, email };
+    localStorage.setItem("token", token);
+    localStorage.setItem("uid", uid);
+    localStorage.setItem("email", email);
+    return {
+      ...state, loading: false, token, uid, email
+    };
   }),
-  on(signinFailed, (state, { errorType }) => {
-    return { ...state, errorType, loading: false };
-  })
+  on(signinFailed, (state, { errorType }) => ({ ...state, errorType, loading: false }))
 );
 
 export default authReducer;
