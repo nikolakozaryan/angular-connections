@@ -1,3 +1,3 @@
 export interface EditProfileDTO {
-  name:string
+  name: string;
 }

@@ -9,7 +9,7 @@ import {
 } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { signupFailed, signupStart } from "@auth/store/auth.actions";
-import { selectLoading } from "@auth/store/auth.selectors";
+import { selectAuthLoading } from "@auth/store/auth.selectors";
 import { nameValidator } from "@auth/validators/name.validator";
 import { passwordValidator } from "@auth/validators/password.validator";
 import { ButtonComponent } from "@core/components/button/button.component";
@@ -28,7 +28,7 @@ import { combineLatest, takeUntil } from "rxjs";
 })
 export class SignupFormComponent extends Destroy implements OnInit {
   public formGroup: FormGroup;
-  public loading$ = this.store.select(selectLoading);
+  public loading$ = this.store.select(selectAuthLoading);
   private usedEmails: string[] = [];
 
   constructor(

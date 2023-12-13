@@ -10,11 +10,8 @@ export const guestGuard: CanActivateFn = () => {
 
   return authService.isAuthorized.pipe(
     map((isAuthorized) => {
-      if (isAuthorized) {
-        router.navigate([`/${ROUTES.Profile}`]);
-        return false;
-      }
-      return true;
+      isAuthorized && router.navigate([ROUTES.Profile]);
+      return !isAuthorized;
     })
   );
 };

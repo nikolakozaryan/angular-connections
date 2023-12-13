@@ -3,13 +3,16 @@ import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { AuthService } from "@auth/services/auth.service";
 import ROUTES from "@core/models/enums/routes.enum";
-import { TOAST_STATE, ToastService } from "@core/services/toast.service";
+import { ToastService, ToastState } from "@core/services/toast.service";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import {
   catchError, map, of, switchMap
 } from "rxjs";
 
 import {
+  logoutFailed,
+  logoutStart,
+  logoutSuccess,
   signinFailed,
   signinStart,
   signinSuccess,
@@ -31,13 +34,13 @@ export default class AuthEffects {
     ofType(signupStart),
     switchMap((formData) => this.authService.signup(formData).pipe(
       map(() => {
-        this.toastService.showToast(TOAST_STATE.success, "Success!");
+        this.toastService.showToast(ToastState.success, "Success!");
         this.router.navigate([ROUTES.Signin]);
         return signupSuccess();
       }),
       catchError((err: HttpErrorResponse) => {
         this.toastService.showToast(
-          TOAST_STATE.error,
+          ToastState.error,
           `Failed! ${err.error.message}`
         );
 
@@ -51,7 +54,7 @@ export default class AuthEffects {
     switchMap((formData) => this.authService.signin(formData).pipe(
       map((data) => {
         const { email } = formData;
-        this.toastService.showToast(TOAST_STATE.success, "Success!");
+        this.toastService.showToast(ToastState.success, "Success!");
         this.router.navigate([ROUTES.Profile]);
         return signinSuccess({ ...data, email });
       }),
@@ -59,12 +62,29 @@ export default class AuthEffects {
         const {
           error: { message, type },
         } = err;
-        this.toastService.showToast(
-          TOAST_STATE.error,
-          `Failed! ${message}`
-        );
+        this.toastService.showToast(ToastState.error, `Failed! ${message}`);
 
         return of(signinFailed({ errorType: type }));
+      })
+    ))
+  ));
+
+  public logout$ = createEffect(() => this.actions$.pipe(
+    ofType(logoutStart),
+    switchMap(() => this.authService.logout().pipe(
+      map(() => {
+        this.toastService.showToast(ToastState.success, "Success!");
+        localStorage.clear();
+        this.router.navigate([ROUTES.Signin]);
+        return logoutSuccess();
+      }),
+      catchError((err: HttpErrorResponse) => {
+        const {
+          error: { message },
+        } = err;
+        this.toastService.showToast(ToastState.error, `Failed! ${message}`);
+
+        return of(logoutFailed());
       })
     ))
   ));

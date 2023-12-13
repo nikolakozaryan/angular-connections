@@ -9,7 +9,7 @@ export const selectErrorType = createSelector(
   ({ errorType }) => errorType
 );
 
-export const selectLoading = createSelector(
+export const selectAuthLoading = createSelector(
   selectAuthState,
   ({ loading }) => loading
 );
@@ -21,5 +21,9 @@ export const selectIsAuthorized = createSelector(
 
 export const selectAuthCreds = createSelector(
   selectAuthState,
-  ({ token, uid, email }) => { token, uid, email; }
+  ({ token, uid, email }) => ({
+    token,
+    uid,
+    email,
+  })
 );

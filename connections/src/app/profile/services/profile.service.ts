@@ -1,8 +1,17 @@
 import { Injectable } from "@angular/core";
+import { HttpService } from "@core/services/http.service";
 
 @Injectable({
-  providedIn: "root"
+  providedIn: "root",
 })
 export class ProfileService {
-  constructor() { }
+  constructor(private httpService: HttpService) {}
+
+  getProfile() {
+    return this.httpService.getProfile();
+  }
+
+  editProfile(name: string) {
+    return this.httpService.editProfile(name);
+  }
 }

@@ -20,6 +20,10 @@ export class AuthService {
     return this.httpService.signin(formData);
   }
 
+  public logout(): Observable<any> {
+    return this.httpService.logout();
+  }
+
   public get isAuthorized(): Observable<boolean> {
     return this.store.select(selectIsAuthorized);
   }

@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { ChangeDetectionStrategy, Component } from "@angular/core";
+import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
 import {
   FormBuilder,
   FormControl,
@@ -9,7 +9,7 @@ import {
 } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { signinFailed, signinStart } from "@auth/store/auth.actions";
-import { selectLoading } from "@auth/store/auth.selectors";
+import { selectAuthLoading } from "@auth/store/auth.selectors";
 import { ButtonComponent } from "@core/components/button/button.component";
 import { Destroy } from "@core/models/classes/destroy";
 import { Actions, ofType } from "@ngrx/effects";
@@ -24,9 +24,9 @@ import { merge, switchMap, takeUntil } from "rxjs";
   styleUrls: ["./login-form.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginFormComponent extends Destroy {
+export class LoginFormComponent extends Destroy implements OnInit {
   public formGroup: FormGroup;
-  public loading$ = this.store.select(selectLoading);
+  public loading$ = this.store.select(selectAuthLoading);
 
   public loginButtonDisabled = false;
 

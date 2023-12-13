@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
 
-export enum TOAST_STATE {
+export enum ToastState {
   success = "toast-success",
   error = "toast-error",
 }
@@ -15,17 +15,15 @@ export class ToastService {
     false
   );
 
-  // The message string that'll bind and display on the toast  ﻿.
   public toastMessage$: BehaviorSubject<string> = new BehaviorSubject<string>(
     "Default Toast Message"
   );
 
-  // The state that will add a style class to the component  ﻿.
   public toastState$: BehaviorSubject<string> = new BehaviorSubject<string>(
-    TOAST_STATE.success
+    ToastState.success
   );
 
-  showToast(toastState: TOAST_STATE, toastMsg: string): void {
+  showToast(toastState: ToastState, toastMsg: string): void {
     this.toastState$.next(toastState);
     this.toastMessage$.next(toastMsg);
     this.showsToast$.next(true);
