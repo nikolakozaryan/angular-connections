@@ -74,8 +74,11 @@ export default class AuthEffects {
     switchMap(() => this.authService.logout().pipe(
       map(() => {
         this.toastService.showToast(ToastState.success, "Success!");
-        localStorage.clear();
-        this.router.navigate([ROUTES.Signin]);
+
+        localStorage.removeItem("uid");
+        localStorage.removeItem("email");
+        localStorage.removeItem("token");
+
         return logoutSuccess();
       }),
       catchError((err: HttpErrorResponse) => {

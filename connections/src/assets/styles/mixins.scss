@@ -5,8 +5,12 @@
 }
 
 @mixin outline-button($main-color, $font-color: $font-button-color) {
-  border: 0.1px solid $main-color;
+  border: 0.1rem solid $main-color;
   color: $font-color;
   background: transparent;
-  border-style: solid;
+
+  &:hover {
+    background: $main-color;
+    color: white;
+  }
 }

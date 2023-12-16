@@ -3,6 +3,7 @@
 
 .button {
   border: none;
+  min-width: 7rem;
   padding: 0.6rem 1.2rem;
   display: flex;
   justify-content: center;
@@ -15,35 +16,43 @@
   font-size: 1.6rem;
   line-height: 1.5;
 
-  transition: 0.3s;
+  transition: background, color 0.3s;
 
-  &:hover {
-    filter: brightness(1.2);
-  }
+  &.primary {
+    background: $primary;
 
-  &:disabled {
-    cursor: default;
-    filter: grayscale(1);
-
-    :hover {
-      filter: none;
+    &.outline {
+      @include outline-button($primary, $primary)
     }
   }
-}
 
-.primary {
-  background: $primary;
+  &.error {
+    background: $error;
 
-  &.outline {
-    @include outline-button($primary, $primary)
+    &.outline {
+      @include outline-button($error, $error);
+    }
   }
-}
 
-.error {
-  background: $error;
+  &.neutral {
+    background: $input-outline;
 
-  &.outline {
-    @include outline-button($error, $error)
+    &.outline {
+      @include outline-button($input-outline, $font-neutral-button-color);
+
+      &:hover {}
+    }
+  }
+
+  &.disabled {
+    cursor: default;
+    background: transparent;
+    color: $button-disabled-color;
+    border: 1px solid $button-disabled-color;
+
+    &:hover {
+      filter: none;
+    }
   }
 }
 

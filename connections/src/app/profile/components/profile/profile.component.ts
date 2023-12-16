@@ -1,11 +1,13 @@
 import { CommonModule } from "@angular/common";
 import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
 import { FormControl, ReactiveFormsModule } from "@angular/forms";
-import { logoutStart } from "@auth/store/auth.actions";
+import { Router } from "@angular/router";
+import { logoutStart, logoutSuccess } from "@auth/store/auth.actions";
 import { selectAuthLoading } from "@auth/store/auth.selectors";
 import { nameValidator } from "@auth/validators/name.validator";
 import { ButtonComponent } from "@core/components/button/button.component";
 import { Destroy } from "@core/models/classes/destroy";
+import ROUTES from "@core/models/enums/routes.enum";
 import { Actions, ofType } from "@ngrx/effects";
 import { Store } from "@ngrx/store";
 import { takeUntil } from "rxjs";
@@ -45,7 +47,11 @@ export class ProfileComponent extends Destroy implements OnInit {
     return this.formControl.value;
   }
 
-  constructor(private store: Store, private actions$: Actions) {
+  constructor(
+    private store: Store,
+    private router: Router,
+    private actions$: Actions
+  ) {
     super();
   }
 
@@ -63,6 +69,12 @@ export class ProfileComponent extends Destroy implements OnInit {
       .pipe(ofType(editProfileSuccess), takeUntil(this.destroy$))
       .subscribe(() => {
         this.isEditMode = false;
+      });
+
+    this.actions$
+      .pipe(ofType(logoutSuccess), takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.router.navigate([ROUTES.Signin]);
       });
   }
 

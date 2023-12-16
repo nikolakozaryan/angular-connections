@@ -2,7 +2,7 @@
   <header class="profile-header">
     <h2 class="profile-header__heading">Profile</h2>
     <div class="profile-header__buttons">
-      <app-button *ngIf="!isEditMode" (click)="onEdit()">Edit</app-button>
+      <app-button *ngIf="!isEditMode" outline theme="neutral" (click)="onEdit()">Edit</app-button>
       <app-button outline theme="error" (click)="logout()" [disabled]="loadingAuth$ | async">Logout</app-button>
     </div>
   </header>

@@ -7,7 +7,7 @@ import {
 } from "@angular/core";
 import { RouterModule } from "@angular/router";
 
-type ButtonTheme = "primary" | "error";
+type ButtonTheme = "primary" | "error" | "neutral";
 
 @Component({
   selector: "app-button",
