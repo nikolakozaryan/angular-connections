@@ -1,8 +1,10 @@
 import { CommonModule } from "@angular/common";
 import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
+import { ModalService } from "@core/services/modal.service";
 import { GroupInterface } from "@main/models/interfaces/groups.interfaces";
-import { deleteGroupStart } from "@main/store/main.actions";
 import { Store } from "@ngrx/store";
+
+import { DeleteGroupModalComponent } from "../delete-group-modal/delete-group-modal.component";
 
 @Component({
   selector: "app-groups-list-item",
@@ -15,10 +17,11 @@ import { Store } from "@ngrx/store";
 export class GroupsListItemComponent {
   @Input() groupData: GroupInterface;
 
-  constructor(private store: Store) {}
+  constructor(private store: Store, private modalService: ModalService) {}
 
   deleteGroup(event: Event) {
     event.stopPropagation();
-    this.store.dispatch(deleteGroupStart({ groupID: this.groupData.id }));
+    localStorage.setItem("deleteGroupID", this.groupData.id);
+    this.modalService.open(DeleteGroupModalComponent);
   }
 }

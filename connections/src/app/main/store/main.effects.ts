@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { logoutSuccess } from "@auth/store/auth.actions";
 import { selectUserUid } from "@auth/store/auth.selectors";
 import { ModalService } from "@core/services/modal.service";
 import { ToastService, ToastState } from "@core/services/toast.service";
@@ -31,6 +32,7 @@ import {
   getPeopleFailed,
   getPeopleStart,
   getPeopleSuccess,
+  resetMainState,
 } from "./main.actions";
 
 @Injectable()
@@ -43,7 +45,7 @@ export default class MainEffects {
     private modalService: ModalService
   ) {}
 
-  public getGroups$ = createEffect(() => this.actions$.pipe(
+  public getGroupsList$ = createEffect(() => this.actions$.pipe(
     ofType(getGroupsStart),
     withLatestFrom(this.store.select(selectUserUid)),
     switchMap(([, uid]) => this.mainService.getGroups().pipe(
@@ -67,25 +69,6 @@ export default class MainEffects {
         );
 
         return of(getGroupsFailed({ errorType: err.error.type }));
-      })
-    ))
-  ));
-
-  public deleteGroup$ = createEffect(() => this.actions$.pipe(
-    ofType(deleteGroupStart),
-    switchMap(({ groupID }) => this.mainService.deleteGroup(groupID).pipe(
-      map(() => {
-        this.toastService.showToast(ToastState.success, "Success!");
-
-        return deleteGroupSuccess({ groupID });
-      }),
-      catchError((err: HttpErrorResponse) => {
-        this.toastService.showToast(
-          ToastState.error,
-          `Failed! ${err.error.message}`
-        );
-
-        return of(deleteGroupFailed({ errorType: err.error.type }));
       })
     ))
   ));
@@ -152,5 +135,29 @@ export default class MainEffects {
         return of(createGroupFailed({ errorType: err.error.type }));
       })
     ))
+  ));
+
+  public deleteGroup$ = createEffect(() => this.actions$.pipe(
+    ofType(deleteGroupStart),
+    switchMap(({ groupID }) => this.mainService.deleteGroup(groupID).pipe(
+      map(() => {
+        this.modalService.close();
+        this.toastService.showToast(ToastState.success, "Success!");
+        return deleteGroupSuccess({ groupID });
+      }),
+      catchError((err: HttpErrorResponse) => {
+        this.toastService.showToast(
+          ToastState.error,
+          `Failed! ${err.error.message}`
+        );
+
+        return of(deleteGroupFailed({ errorType: err.error.type }));
+      })
+    ))
+  ));
+
+  public logout$ = createEffect(() => this.actions$.pipe(
+    ofType(logoutSuccess),
+    map(() => resetMainState())
   ));
 }

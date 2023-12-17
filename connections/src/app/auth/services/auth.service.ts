@@ -24,6 +24,13 @@ export class AuthService {
     return this.httpService.logout();
   }
 
+  public get isAuth() {
+    const token = localStorage.getItem("token");
+    const uid = localStorage.getItem("uid");
+    const email = localStorage.getItem("email");
+    return !!(token && uid && email);
+  }
+
   public get isAuthorized(): Observable<boolean> {
     return this.store.select(selectIsAuthorized);
   }

@@ -23,6 +23,7 @@ export const {
   getPeopleStart,
   getPeopleSuccess,
   getPeopleFailed,
+  resetMainState,
 } = createActionGroup({
   source,
   events: {
@@ -38,5 +39,6 @@ export const {
     getPeopleStart: emptyProps(),
     getPeopleSuccess: props<PeopleResponse>(),
     getPeopleFailed: props<ApiErrorResponse>(),
+    resetMainState: emptyProps(),
   },
 });

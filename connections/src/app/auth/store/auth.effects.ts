@@ -1,12 +1,13 @@
 import { HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { AuthService } from "@auth/services/auth.service";
 import ROUTES from "@core/models/enums/routes.enum";
+import { TimerService } from "@core/services/timer.service";
 import { ToastService, ToastState } from "@core/services/toast.service";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import {
-  catchError, map, of, switchMap
+  catchError, map, of, switchMap, tap
 } from "rxjs";
 
 import {
@@ -27,7 +28,9 @@ export default class AuthEffects {
     private actions$: Actions,
     private authService: AuthService,
     private router: Router,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private timerService: TimerService,
+    private route: ActivatedRoute
   ) {}
 
   public signup$ = createEffect(() => this.actions$.pipe(
@@ -79,6 +82,8 @@ export default class AuthEffects {
         localStorage.removeItem("email");
         localStorage.removeItem("token");
 
+        this.timerService.resetTimers();
+
         return logoutSuccess();
       }),
       catchError((err: HttpErrorResponse) => {
@@ -91,4 +96,12 @@ export default class AuthEffects {
       })
     ))
   ));
+
+  public logoutRedirect$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(logoutSuccess),
+      tap(() => this.router.navigate([ROUTES.Signin]))
+    ),
+    { dispatch: false }
+  );
 }

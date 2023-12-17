@@ -12,7 +12,7 @@ import { TimerService } from "@core/services/timer.service";
 import { getGroupsStart } from "@main/store/main.actions";
 import { selectGroups } from "@main/store/main.selectors";
 import { Store } from "@ngrx/store";
-import { takeUntil } from "rxjs";
+import { Subject, takeUntil } from "rxjs";
 
 import { CreateGroupModalComponent } from "../create-group-modal/create-group-modal.component";
 import { GroupsListItemComponent } from "../groups-list-item/groups-list-item.component";
@@ -27,7 +27,7 @@ import { GroupsListItemComponent } from "../groups-list-item/groups-list-item.co
 })
 export class GroupsListComponent extends Destroy implements OnInit {
   public groups$ = this.store.select(selectGroups);
-  public timer$ = this.timerService.groupsTimer;
+  public timer$: Subject<number>;
   public timerValue = 0;
   public isUpdateAvailable = true;
 
@@ -38,6 +38,7 @@ export class GroupsListComponent extends Destroy implements OnInit {
     private modalService: ModalService
   ) {
     super();
+    this.timer$ = timerService.getTimer("groups");
   }
 
   ngOnInit(): void {

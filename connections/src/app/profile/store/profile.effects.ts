@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { logoutSuccess } from "@auth/store/auth.actions";
 import { ToastService, ToastState } from "@core/services/toast.service";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Store } from "@ngrx/store";
@@ -16,6 +17,7 @@ import {
   getProfileFailed,
   getProfileStart,
   getProfileSuccess,
+  resetProfileState,
 } from "./profile.actions";
 import { selectProfileState } from "./profile.selectors";
 
@@ -86,5 +88,10 @@ export default class ProfileEffects {
         return of(editProfileFailed({ errorType: err.error.type }));
       })
     ))
+  ));
+
+  public logout$ = createEffect(() => this.actions$.pipe(
+    ofType(logoutSuccess),
+    map(() => resetProfileState())
   ));
 }

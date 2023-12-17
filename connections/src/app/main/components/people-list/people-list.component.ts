@@ -11,7 +11,7 @@ import { TimerService } from "@core/services/timer.service";
 import { getPeopleStart } from "@main/store/main.actions";
 import { selectPeople } from "@main/store/main.selectors";
 import { Store } from "@ngrx/store";
-import { takeUntil } from "rxjs";
+import { Subject, takeUntil } from "rxjs";
 
 import { PeopleListItemComponent } from "../people-list-item/people-list-item.component";
 
@@ -25,7 +25,7 @@ import { PeopleListItemComponent } from "../people-list-item/people-list-item.co
 })
 export class PeopleListComponent extends Destroy implements OnInit {
   public people$ = this.store.select(selectPeople);
-  public timer$ = this.timerService.peopleTimer;
+  public timer$: Subject<number>;
   public timerValue = 0;
   public isUpdateAvailable = true;
 
@@ -35,6 +35,7 @@ export class PeopleListComponent extends Destroy implements OnInit {
     private cdr: ChangeDetectorRef
   ) {
     super();
+    this.timer$ = timerService.getTimer("people");
   }
 
   ngOnInit(): void {

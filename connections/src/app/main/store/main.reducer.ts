@@ -6,9 +6,12 @@ import {
   createGroupFailed,
   createGroupStart,
   createGroupSuccess,
+  deleteGroupFailed,
+  deleteGroupStart,
   deleteGroupSuccess,
   getGroupsSuccess,
   getPeopleSuccess,
+  resetMainState,
 } from "./main.actions";
 
 export interface MainState {
@@ -50,7 +53,18 @@ const mainReducer = createReducer(
     groupsCount: state.groupsCount + 1,
     groups: [...state.groups, group],
   })),
-  on(createGroupFailed, (state) => ({ ...state, loading: false }))
+  on(createGroupFailed, (state) => ({ ...state, loading: false })),
+  on(deleteGroupStart, (state) => ({ ...state, loading: true })),
+  on(deleteGroupSuccess, (state, { groupID }) => {
+    localStorage.removeItem("deleteGroupID");
+    return {
+      ...state,
+      loading: false,
+      groups: state.groups.filter((group) => group.id !== groupID),
+    };
+  }),
+  on(deleteGroupFailed, (state) => ({ ...state, loading: false })),
+  on(resetMainState, () => initialState)
 );
 
 export default mainReducer;

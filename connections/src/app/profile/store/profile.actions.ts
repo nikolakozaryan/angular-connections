@@ -1,6 +1,4 @@
-import {
-  ApiErrorResponse,
-} from "@auth/models/interfaces/auth.interface";
+import { ApiErrorResponse } from "@auth/models/interfaces/auth.interface";
 import { createActionGroup, emptyProps, props } from "@ngrx/store";
 
 import { EditProfileDTO } from "../core/interfaces/edit-profile.dto";
@@ -15,6 +13,7 @@ export const {
   editProfileStart,
   editProfileSuccess,
   editProfileFailed,
+  resetProfileState,
 } = createActionGroup({
   source,
   events: {
@@ -24,5 +23,6 @@ export const {
     editProfileStart: props<EditProfileDTO>(),
     editProfileSuccess: props<EditProfileDTO>(),
     editProfileFailed: props<ApiErrorResponse>(),
+    resetProfileState: emptyProps(),
   },
 });

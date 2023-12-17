@@ -1,1 +1,13 @@
-<p>delete-group-modal works!</p>
+<div class="container">
+  <header class="header">
+    <h3>Delete Group?</h3>
+  </header>
+  <div class="message">
+    Are you sure you want to delete this group?
+  </div>
+  <footer class="footer">
+    <app-button outline theme="neutral" (click)="closeModal()" [disabled]="loading$ | async">Cancel</app-button>
+    <app-button theme="error" [disabled]="(loading$ | async)"
+      (click)="deleteGroup()">Delete</app-button>
+  </footer>
+</div>

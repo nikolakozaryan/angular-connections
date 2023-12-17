@@ -7,6 +7,7 @@ import {
   getProfileFailed,
   getProfileStart,
   getProfileSuccess,
+  resetProfileState,
 } from "./profile.actions";
 
 export interface ProfileState {
@@ -40,7 +41,8 @@ const profileReducer = createReducer(
     name,
     loading: false,
   })),
-  on(editProfileFailed, (state) => ({ ...state, loading: false }))
+  on(editProfileFailed, (state) => ({ ...state, loading: false })),
+  on(resetProfileState, () => initialState)
 );
 
 export default profileReducer;
