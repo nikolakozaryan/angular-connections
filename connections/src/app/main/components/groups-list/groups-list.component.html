@@ -1,0 +1,13 @@
+<div class="container">
+  <header class="header">
+    <h2 class="header-heading">Groups</h2>
+    <div class="header-buttons">
+      <span class="timer" *ngIf="timerValue">0:{{timerValue}}</span>
+      <app-button outline theme="neutral" [disabled]="!isUpdateAvailable" (click)="startTimer()">Update</app-button>
+      <app-button (click)="createGroup()">Create</app-button>
+    </div>
+  </header>
+  <ul class="list">
+    <app-groups-list-item *ngFor="let group of (groups$ | async)" [groupData]="group"></app-groups-list-item>
+  </ul>
+</div>

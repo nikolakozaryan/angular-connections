@@ -1,0 +1,56 @@
+import { GroupInterface } from "@main/models/interfaces/groups.interfaces";
+import { UserResponse } from "@main/models/interfaces/users.interafaces";
+import { createReducer, on } from "@ngrx/store";
+
+import {
+  createGroupFailed,
+  createGroupStart,
+  createGroupSuccess,
+  deleteGroupSuccess,
+  getGroupsSuccess,
+  getPeopleSuccess,
+} from "./main.actions";
+
+export interface MainState {
+  groupsCount: number;
+  groups: GroupInterface[];
+  peopleCount: number;
+  people: UserResponse[];
+  loading: boolean;
+}
+
+const initialState: MainState = {
+  groupsCount: 0,
+  groups: [],
+  peopleCount: 0,
+  people: [],
+  loading: false,
+};
+
+const mainReducer = createReducer(
+  initialState,
+  on(getGroupsSuccess, (state, { Items, Count }) => ({
+    ...state,
+    groups: Items,
+    groupsCount: Count,
+  })),
+  on(getPeopleSuccess, (state, { Items, Count }) => ({
+    ...state,
+    people: Items,
+    peopleCount: Count,
+  })),
+  on(deleteGroupSuccess, (state, { groupID }) => ({
+    ...state,
+    groups: state.groups.filter((group) => group.id !== groupID),
+  })),
+  on(createGroupStart, (state) => ({ ...state, loading: true })),
+  on(createGroupSuccess, (state, group) => ({
+    ...state,
+    loading: false,
+    groupsCount: state.groupsCount + 1,
+    groups: [...state.groups, group],
+  })),
+  on(createGroupFailed, (state) => ({ ...state, loading: false }))
+);
+
+export default mainReducer;

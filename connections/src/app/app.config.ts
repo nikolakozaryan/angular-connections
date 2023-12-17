@@ -8,6 +8,8 @@ import { provideRouter } from "@angular/router";
 import AuthEffects from "@auth/store/auth.effects";
 import authReducer from "@auth/store/auth.reducer";
 import { HttpRequestInterceptor } from "@core/interceptors/http-request.interceptor";
+import MainEffects from "@main/store/main.effects";
+import mainReducer from "@main/store/main.reducer";
 import { provideEffects } from "@ngrx/effects";
 import { provideStore } from "@ngrx/store";
 import { provideStoreDevtools } from "@ngrx/store-devtools";
@@ -20,8 +22,12 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideHttpClient(withInterceptorsFromDi()),
     provideRouter(routes),
-    provideStore({ auth: authReducer, profile: profileReducer }),
-    provideEffects(AuthEffects, ProfileEffects),
+    provideStore({
+      auth: authReducer,
+      profile: profileReducer,
+      main: mainReducer,
+    }),
+    provideEffects(AuthEffects, ProfileEffects, MainEffects),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
     { provide: "API_URL", useValue: "https://tasks.app.rs.school/angular/" },
     {

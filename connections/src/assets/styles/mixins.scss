@@ -14,3 +14,19 @@
     color: white;
   }
 }
+
+@mixin scrollBar {
+  &::-webkit-scrollbar {
+    width: .6rem;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    width: 1rem;
+    background: $font-disabled-color;
+    border-radius: .8rem;
+  }
+}

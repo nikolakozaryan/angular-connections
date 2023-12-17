@@ -13,7 +13,7 @@
 
   color: $font-button-color;
   font-weight: bold;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   line-height: 1.5;
 
   transition: background, color 0.3s;
@@ -45,10 +45,10 @@
   }
 
   &.disabled {
-    cursor: default;
-    background: transparent;
-    color: $button-disabled-color;
-    border: 1px solid $button-disabled-color;
+    cursor: default  !important;
+    background: transparent !important;
+    color: $button-disabled-color !important;
+    border: 1px solid $button-disabled-color !important;
 
     &:hover {
       filter: none;

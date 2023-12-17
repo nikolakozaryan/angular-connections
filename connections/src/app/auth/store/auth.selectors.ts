@@ -27,3 +27,5 @@ export const selectAuthCreds = createSelector(
     email,
   })
 );
+
+export const selectUserUid = createSelector(selectAuthState, ({ uid }) => uid);

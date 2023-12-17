@@ -55,7 +55,7 @@ export default class AuthEffects {
       map((data) => {
         const { email } = formData;
         this.toastService.showToast(ToastState.success, "Success!");
-        this.router.navigate([ROUTES.Profile]);
+        this.router.navigate([ROUTES.Root]);
         return signinSuccess({ ...data, email });
       }),
       catchError((err: HttpErrorResponse) => {

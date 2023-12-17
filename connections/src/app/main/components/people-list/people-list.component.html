@@ -1,0 +1,12 @@
+<div class="container">
+  <header class="header">
+    <h2 class="header-heading">People</h2>
+    <div class="header-buttons">
+      <span class="timer" *ngIf="timerValue">0:{{timerValue}}</span>
+      <app-button outline theme="neutral" [disabled]="!isUpdateAvailable" (click)="startTimer()">Update</app-button>
+    </div>
+  </header>
+  <ul class="list">
+    <app-people-list-item *ngFor="let user of (people$ | async)" [userData]="user"></app-people-list-item>
+  </ul>
+</div>

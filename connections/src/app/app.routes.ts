@@ -1,9 +1,9 @@
 import { Routes } from "@angular/router";
 import AUTH_ROUTES from "@auth/auth.routes";
+import { NotFoundComponent } from "@core/components/not-found/not-found.component";
 import { authGuard } from "@core/guards/auth.guard";
 import ROUTES from "@core/models/enums/routes.enum";
-
-import { NotFoundComponent } from "./core/components/not-found/not-found.component";
+import { MainComponent } from "@main/components/main/main.component";
 
 export const routes: Routes = [
   ...AUTH_ROUTES,
@@ -14,7 +14,8 @@ export const routes: Routes = [
   },
   {
     path: ROUTES.Root,
-    redirectTo: `/${ROUTES.Profile}`,
+    canActivate: [authGuard],
+    component: MainComponent,
     pathMatch: "full",
   },
   { path: "**", component: NotFoundComponent },

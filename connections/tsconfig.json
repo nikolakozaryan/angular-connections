@@ -24,7 +24,9 @@
     "paths": {
       "@core/*": ["src/app/core/*"],
       "@auth/*": ["src/app/auth/*"],
-      "@store/*": ["src/app/redux/*"]
+      "@store/*": ["src/app/redux/*"],
+      "@profile/*": ["src/app/profile/*"],
+      "@main/*": ["src/app/main/*"]
     }
   },
   "angularCompilerOptions": {
