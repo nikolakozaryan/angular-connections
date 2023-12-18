@@ -1,4 +1,4 @@
-<li class="item">
+<li [routerLink]="getGroupRoute()" class="item">
   <span>{{groupData.name}}</span>
   <button class="button" (click)="deleteGroup($event)" *ngIf="groupData.isOwner">
     <img src="assets/icons/trash.svg" alt="trash-icon">

@@ -26,4 +26,8 @@ export class MainService {
   createGroup(groupName: string) {
     return this.http.createGroup(groupName);
   }
+
+  createConversation(companionID: string) {
+    return this.http.createConversation(companionID);
+  }
 }

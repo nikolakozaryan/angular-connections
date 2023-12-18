@@ -26,7 +26,8 @@
       "@auth/*": ["src/app/auth/*"],
       "@store/*": ["src/app/redux/*"],
       "@profile/*": ["src/app/profile/*"],
-      "@main/*": ["src/app/main/*"]
+      "@main/*": ["src/app/main/*"],
+      "@conversations/*": ["src/app/conversations/*"],
     }
   },
   "angularCompilerOptions": {

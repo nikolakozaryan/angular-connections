@@ -5,8 +5,11 @@ import { authGuard } from "@core/guards/auth.guard";
 import ROUTES from "@core/models/enums/routes.enum";
 import { MainComponent } from "@main/components/main/main.component";
 
+import CONVERSATIONS_ROUTES from "./conversations/conversations.routes";
+
 export const routes: Routes = [
   ...AUTH_ROUTES,
+  ...CONVERSATIONS_ROUTES,
   {
     path: ROUTES.Profile,
     canActivate: [authGuard],

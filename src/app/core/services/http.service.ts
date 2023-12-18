@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { SigninDto, SigninSuccessResponse } from "@auth/models/dto/login.dto";
 import SignupDto from "@auth/models/dto/signup.dto";
+import { MessagesRawResponse } from "@conversations/models/interfaces/message.interface";
 import ENDPOINTS from "@core/models/constants/endpoints";
 import {
   ConversationsRawResponse,
@@ -68,11 +69,49 @@ export class HttpService {
   }
 
   public createConversation(
-    companion: string
+    companionID: string
   ): Observable<CreateConversationResponse> {
     return this.http.post<CreateConversationResponse>(
       ENDPOINTS.Conversations.create,
-      { companion }
+      { companion: companionID }
     );
+  }
+
+  public getGroupMessages(groupID: string, since?: string) {
+    return this.http.get<MessagesRawResponse>(ENDPOINTS.Groups.read, {
+      params: {
+        groupID,
+        ...(since ? { since } : {}),
+      },
+    });
+  }
+
+  public sendGroupMessage(groupID: string, message: string) {
+    return this.http.post(ENDPOINTS.Groups.message, {
+      groupID,
+      message,
+    });
+  }
+
+  public getConversationMessages(conversationID: string, since?: string) {
+    return this.http.get<MessagesRawResponse>(ENDPOINTS.Conversations.list, {
+      params: {
+        conversationID,
+        ...(since ? { since } : {}),
+      },
+    });
+  }
+
+  public sendConversationMessages(conversationID: string, message: string) {
+    return this.http.post(ENDPOINTS.Conversations.message, {
+      conversationID,
+      message,
+    });
+  }
+
+  public deleteConversation(conversationID: string) {
+    return this.http.delete(ENDPOINTS.Conversations.delete, {
+      params: { conversationID },
+    });
   }
 }
