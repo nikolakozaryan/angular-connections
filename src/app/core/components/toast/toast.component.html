@@ -1,0 +1,7 @@
+<div class="toast" [ngClass]="[(toastState$ | async)]" *ngIf="showToast$ | async">
+  <div class="toast-message">
+    <img alt="Toast status icon">
+    <p>{{toastMessage$ | async}}</p>
+  </div>
+  <button class="toast-close" (click)="hideToast()">+</button>
+</div>

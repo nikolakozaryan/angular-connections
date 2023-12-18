@@ -1,0 +1,71 @@
+@import 'variables';
+
+.toast {
+  $self: &;
+  position: absolute;
+  bottom: 10rem;
+  right: 0;
+  z-index: 2;
+  width: 40rem;
+  height: 8rem;
+  padding: 1.6rem 2.4rem 1.6rem 1.6rem;
+  background: $bg-color-content;
+  border-radius: 0.8rem 0 0 0.8rem;
+  display: flex;
+  align-items: center;
+
+  &-message {
+    font-size: 1.4rem;
+    line-height: 2.2rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  &-error {
+    background: $toast-error-bg;
+
+    #{$self}-message {
+      p {
+        color: $toast-error-font-color
+      }
+
+      img {
+        content: url('/assets/icons/error.svg');
+      }
+    }
+
+    #{$self}-close {
+      color: $toast-error-font-color;
+    }
+  }
+
+  &-success {
+    background: $toast-success-bg;
+
+    #{$self}-message {
+      p {
+        color: $toast-success-font-color
+      }
+
+      img {
+        content: url('/assets/icons/success.svg');
+      }
+    }
+
+    #{$self}-close {
+      color: $toast-success-font-color;
+    }
+  }
+
+  &-close {
+    position: absolute;
+    border: none;
+    background: transparent;
+    top: 0.5rem;
+    right: 1rem;
+    font-size: 3rem;
+    transform: rotate(45deg);
+    cursor: pointer;
+  }
+}

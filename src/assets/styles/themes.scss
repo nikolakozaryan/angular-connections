@@ -1,0 +1,31 @@
+:root:has(body.light) {
+  --bg-color: #F2F5F9;
+  --bg-color-content: #FFFFFF;
+  --font-color: #212B36;
+  --font-neutral-button-color: #212B36;
+  --font-button-color: #FFFFFF;
+  --toggler-bg-color: #EDF0F3;
+}
+
+:root:has(body.dark) {
+  --bg-color: #161C24;
+  --bg-color-content: #212B36;
+  --font-neutral-button-color: #FFFFFF;
+  --font-color: #FFFFFF;
+  --font-button-color: #FFFFFF;
+  --toggler-bg-color: #161C24;
+}
+
+:root {
+  --primary: #2750F1;
+  --error: #FF5630;
+  --toggler-color: #FBAF1D;
+  --font-disabled-color: #919EAB;
+  --input-outline: #919EAB33;
+  --button-disabled-color: #919EABCC;
+  --list-item-hover-color: #929EAB14;
+  --toast-success-bg: #D3FCD2;
+  --toast-success-font-color: #065E49;
+  --toast-error-bg: #FFE9D5;
+  --toast-error-font-color: #7A0916;
+}

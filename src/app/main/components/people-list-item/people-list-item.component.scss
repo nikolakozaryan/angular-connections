@@ -1,0 +1,20 @@
+@import 'variables';
+
+.item {
+  padding: 1.2rem 2rem;
+  font-size: 1.4rem;
+  line-height: 2.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &:hover {
+    background: $list-item-hover-color;
+  }
+}
+
+.with-conversation {
+  background: #2750F114;
+}

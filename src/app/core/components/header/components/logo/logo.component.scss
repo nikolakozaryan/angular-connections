@@ -1,0 +1,13 @@
+@import 'variables';
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+
+  &-image {
+    width: 2.8rem;
+    height: 2.8rem;
+  }
+}

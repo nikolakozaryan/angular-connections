@@ -1,0 +1,52 @@
+@import 'variables';
+
+.toggler {
+  display: flex;
+  align-items: center;
+  width: 6.8rem;
+  height: 3.2rem;
+  padding: 0.4rem;
+  background: $toggler-bg-color;
+  border-radius: 5rem;
+  cursor: pointer;
+
+  &-marker {
+    position: relative;
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 50%;
+    background: $toggler-color;
+    overflow: hidden;
+
+    &::after {
+      position: absolute;
+      top: -1.5rem;
+      right: -1.5rem;
+      content: '';
+      width: 2rem;
+      height: 2rem;
+      background: $toggler-bg-color;
+      border-radius: 50%;
+      transition: .3s;
+    }
+  }
+
+  &-filler {
+    transition: 0.3s;
+  }
+}
+
+:host-context(.dark) {
+  .toggler {
+    &-filler {
+      flex-grow: 1;
+    }
+
+    &-marker {
+      &::after {
+        top: -0.4rem;
+        right: -0.4rem;
+      }
+    }
+  }
+}

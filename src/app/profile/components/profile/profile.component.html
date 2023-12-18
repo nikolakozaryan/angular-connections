@@ -1,0 +1,46 @@
+<div class="container profile">
+  <header class="profile-header">
+    <h2 class="profile-header__heading">Profile</h2>
+    <div class="profile-header__buttons">
+      <app-button *ngIf="!isEditMode" outline theme="neutral" (click)="onEdit()">Edit</app-button>
+      <app-button outline theme="error" (click)="logout()" [disabled]="loadingAuth$ | async">Logout</app-button>
+    </div>
+  </header>
+  <article class="profile-content">
+    <p class="profile-content__item">
+      <span class="profile-content__item-title">User name</span>
+      <ng-container *ngIf="isEditMode;else default">
+        <div class="input">
+          <input [ngClass]="{'input-field_error': formControl.errors && (formControl.touched || formControl.dirty)}"
+            class="input-field" type="text" [formControl]="formControl" name="name" placeholder="Name">
+          <div class="input-error" *ngIf="formControl.errors && (formControl.touched || formControl.dirty)">
+            {{formControl.hasError('required') ? 'Name is required.' : null}}
+            {{formControl.hasError('maxlength') ? "Name shouldn't be longer than 40 symbols." : null}}
+            {{formControl.hasError('nameValue') ? 'Name should contain only letters and spaces.' : null}}
+          </div>
+        </div>
+      </ng-container>
+      <ng-template #default>
+        <span class="profile-content__item-value">{{name}}</span>
+      </ng-template>
+    </p>
+    <p class="profile-content__item">
+      <span class="profile-content__item-title">User ID</span>
+      <span class="profile-content__item-value">{{uid$ | async}}</span>
+    </p>
+    <p class="profile-content__item">
+      <span class="profile-content__item-title">Email</span>
+      <span class="profile-content__item-value">{{email$ | async}}</span>
+    </p>
+    <p class="profile-content__item">
+      <span class="profile-content__item-title">Profile creation time</span>
+      <span class="profile-content__item-value">{{date$ | async | date : 'short'}}</span>
+    </p>
+  </article>
+
+  <footer class="profile-footer" *ngIf="isEditMode">
+    <app-button [disabled]="loadingProfile$ | async" (click)="onEditCancel()">Cancel</app-button>
+    <app-button [disabled]="(loadingProfile$ | async) || !formControl.valid" (click)="onEditSave()">Save
+      Changes</app-button>
+  </footer>
+</div>
