@@ -6,11 +6,15 @@ import {
   createConversationMessageStart,
   createGroupMessageFailed,
   createGroupMessageStart,
+  deleteConversationFailed,
+  deleteConversationStart,
+  deleteConversationSuccess,
   getConversationMessagesStart,
   getConversationMessagesSuccess,
   getGroupMessagesFailed,
   getGroupMessagesStart,
   getGroupMessagesSuccess,
+  resetConversationsState,
 } from "./conversations.actions";
 
 export interface ConversationsState {
@@ -50,5 +54,20 @@ export const conversationsReducer = createReducer(
   on(createGroupMessageStart, (state) => ({ ...state, loading: true })),
   on(createGroupMessageFailed, (state) => ({ ...state, loading: false })),
   on(createConversationMessageStart, (state) => ({ ...state, loading: true })),
-  on(createConversationMessageFailed, (state) => ({ ...state, loading: false })),
+  on(createConversationMessageFailed, (state) => ({
+    ...state,
+    loading: false,
+  })),
+  on(deleteConversationStart, (state) => ({ ...state, loading: true })),
+  on(deleteConversationSuccess, (state, { conversationID }) => {
+    const copy = { ...state.conversations };
+    delete copy[conversationID];
+    return {
+      ...state,
+      loading: false,
+      conversations: copy,
+    };
+  }),
+  on(deleteConversationFailed, (state) => ({ ...state, loading: false })),
+  on(resetConversationsState, () => initialState)
 );

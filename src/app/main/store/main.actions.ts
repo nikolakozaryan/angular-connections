@@ -25,6 +25,7 @@ export const {
   getPeopleFailed,
   resetMainState,
   updateUserConversationId,
+  clearConversationId,
 } = createActionGroup({
   source,
   events: {
@@ -45,5 +46,6 @@ export const {
       userID: string;
       conversationID: string;
     }>(),
+    clearConversationId: props<{ conversationID: string }>(),
   },
 });

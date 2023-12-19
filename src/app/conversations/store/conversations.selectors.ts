@@ -33,3 +33,8 @@ export const selectIsGroupVisited = (conversationID: string) => createSelector(
   selectConversationsState,
   ({ conversations }) => conversations[conversationID]
 );
+
+export const selectConversationsLoading = createSelector(
+  selectConversationsState,
+  ({ loading }) => loading
+);

@@ -94,7 +94,7 @@ export class HttpService {
   }
 
   public getConversationMessages(conversationID: string, since?: string) {
-    return this.http.get<MessagesRawResponse>(ENDPOINTS.Conversations.list, {
+    return this.http.get<MessagesRawResponse>(ENDPOINTS.Conversations.read, {
       params: {
         conversationID,
         ...(since ? { since } : {}),

@@ -25,6 +25,7 @@ export const {
   deleteConversationStart,
   deleteConversationSuccess,
   deleteConversationFailed,
+  resetConversationsState,
 } = createActionGroup({
   source,
   events: {
@@ -46,8 +47,9 @@ export const {
       since?: string;
     }>(),
     createConversationMessageFailed: props<ApiErrorResponse>(),
-    deleteConversationStart: emptyProps(),
-    deleteConversationSuccess: emptyProps(),
+    deleteConversationStart: props<{ conversationID: string }>(),
+    deleteConversationSuccess: props<{ conversationID: string }>(),
     deleteConversationFailed: props<ApiErrorResponse>(),
+    resetConversationsState: emptyProps(),
   },
 });

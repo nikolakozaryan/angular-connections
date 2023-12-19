@@ -1,9 +1,13 @@
 import { HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
+import { logoutSuccess } from "@auth/store/auth.actions";
 import { MessageInterface } from "@conversations/models/interfaces/message.interface";
 import { ConversationsService } from "@conversations/services/conversations.service";
+import ROUTES from "@core/models/enums/routes.enum";
 import { ModalService } from "@core/services/modal.service";
 import { ToastService, ToastState } from "@core/services/toast.service";
+import { clearConversationId } from "@main/store/main.actions";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Store } from "@ngrx/store";
 import {
@@ -17,12 +21,16 @@ import {
   createGroupMessageFailed,
   createGroupMessageStart,
   createGroupMessageSuccess,
+  deleteConversationFailed,
+  deleteConversationStart,
+  deleteConversationSuccess,
   getConversationMessagesFailed,
   getConversationMessagesStart,
   getConversationMessagesSuccess,
   getGroupMessagesFailed,
   getGroupMessagesStart,
   getGroupMessagesSuccess,
+  resetConversationsState,
 } from "./conversations.actions";
 import { selectLastConversationMessageDate } from "./conversations.selectors";
 
@@ -33,7 +41,8 @@ export default class ConversationsEffects {
     private conversationsService: ConversationsService,
     private toastService: ToastService,
     private store: Store,
-    private modalService: ModalService
+    private modalService: ModalService,
+    private router: Router
   ) {}
 
   public getGroupMessages$ = createEffect(() => this.actions$.pipe(
@@ -151,5 +160,34 @@ export default class ConversationsEffects {
     map(({ conversationID, since }) => getConversationMessagesStart({ conversationID, since }))
   ));
 
-  // public deleteConversation$ = createEffect(() => {});
+  public deleteConversation$ = createEffect(() => this.actions$.pipe(
+    ofType(deleteConversationStart),
+    switchMap(({ conversationID }) => this.conversationsService.deleteConversation(conversationID).pipe(
+      map(() => {
+        this.modalService.close();
+        this.router.navigate([ROUTES.Root]);
+        this.toastService.showToast(ToastState.success, "Success!");
+
+        return deleteConversationSuccess({ conversationID });
+      }),
+      catchError((err: HttpErrorResponse) => {
+        this.toastService.showToast(
+          ToastState.error,
+          `Failed! ${err.error.message}`
+        );
+
+        return of(deleteConversationFailed({ errorType: err.error.type }));
+      })
+    ))
+  ));
+
+  public clearConversationId$ = createEffect(() => this.actions$.pipe(
+    ofType(deleteConversationSuccess),
+    map(({ conversationID }) => clearConversationId({ conversationID }))
+  ));
+
+  public resetConversationState$ = createEffect(() => this.actions$.pipe(
+    ofType(logoutSuccess),
+    map(() => resetConversationsState())
+  ));
 }

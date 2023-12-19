@@ -64,6 +64,7 @@
       align-items: center;
 
       .input {
+        background: $bg-color-content;
         flex-grow: 1;
         border: none;
         font-size: 1.4rem;

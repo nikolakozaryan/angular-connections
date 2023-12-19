@@ -25,3 +25,8 @@ export const selectUserName = (userID: string) => createSelector(selectMainState
   const user = people.find((u) => u.uid === userID);
   return user?.name || "Unknown";
 });
+
+export const selectUsernameByConversationId = (conversationID: string) => createSelector(selectMainState, ({ people }) => {
+  const user = people.find((u) => u.conversationID === conversationID);
+  return user?.name || "Unknown";
+});

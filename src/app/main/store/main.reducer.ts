@@ -3,6 +3,7 @@ import { UserResponse } from "@main/models/interfaces/users.interafaces";
 import { createReducer, on } from "@ngrx/store";
 
 import {
+  clearConversationId,
   createGroupFailed,
   createGroupStart,
   createGroupSuccess,
@@ -68,6 +69,12 @@ const mainReducer = createReducer(
   on(updateUserConversationId, (state, { conversationID, userID }) => ({
     ...state,
     people: state.people.map((user) => (user.uid === userID ? { ...user, conversationID } : user)),
+  })),
+  on(clearConversationId, (state, { conversationID }) => ({
+    ...state,
+    people: state.people.map((user) => (user.conversationID === conversationID
+      ? { ...user, conversationID: null }
+      : user)),
   })),
   on(resetMainState, () => initialState)
 );
