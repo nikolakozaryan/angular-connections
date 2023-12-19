@@ -26,7 +26,7 @@ import { PeopleListItemComponent } from "../people-list-item/people-list-item.co
 export class PeopleListComponent extends Destroy implements OnInit {
   public people$ = this.store.select(selectPeople);
   public timer$: Subject<number>;
-  public timerValue = 0;
+  public timerValue = "";
   public isUpdateAvailable = true;
 
   constructor(
@@ -40,7 +40,7 @@ export class PeopleListComponent extends Destroy implements OnInit {
 
   ngOnInit(): void {
     this.timer$.pipe(takeUntil(this.destroy$)).subscribe((val) => {
-      this.timerValue = val;
+      this.timerValue = `${val}`.padStart(2, "0");
       this.isUpdateAvailable = !val;
       this.cdr.detectChanges();
     });

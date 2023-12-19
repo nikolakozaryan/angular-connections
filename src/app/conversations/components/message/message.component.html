@@ -1,0 +1,7 @@
+<div class="container" [ngClass]="{'author': message.authorID === (userId$ | async)}">
+  <div class="message">
+    <span class="message-author">{{username$ | async}}</span>
+    <span class="message-date">{{message.createdAt| date: 'd/M/yyy, h:mm a'}}</span>
+    <p class="message-text">{{message.message}}</p>
+  </div>
+</div>

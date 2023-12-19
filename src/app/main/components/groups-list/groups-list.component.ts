@@ -28,7 +28,7 @@ import { GroupsListItemComponent } from "../groups-list-item/groups-list-item.co
 export class GroupsListComponent extends Destroy implements OnInit {
   public groups$ = this.store.select(selectGroups);
   public timer$: Subject<number>;
-  public timerValue = 0;
+  public timerValue = "";
   public isUpdateAvailable = true;
 
   constructor(
@@ -43,7 +43,7 @@ export class GroupsListComponent extends Destroy implements OnInit {
 
   ngOnInit(): void {
     this.timer$.pipe(takeUntil(this.destroy$)).subscribe((val) => {
-      this.timerValue = val;
+      this.timerValue = `${val}`.padStart(2, "0");
       this.isUpdateAvailable = !val;
       this.cdr.detectChanges();
     });

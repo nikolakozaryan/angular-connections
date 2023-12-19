@@ -1,7 +1,9 @@
 import { HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
 import { logoutSuccess } from "@auth/store/auth.actions";
 import { selectUserUid } from "@auth/store/auth.selectors";
+import ROUTES from "@core/models/enums/routes.enum";
 import { ModalService } from "@core/services/modal.service";
 import { ToastService, ToastState } from "@core/services/toast.service";
 import { ConversationResponse } from "@main/models/interfaces/conversations.interfaces";
@@ -42,7 +44,8 @@ export default class MainEffects {
     private mainService: MainService,
     private toastService: ToastService,
     private store: Store,
-    private modalService: ModalService
+    private modalService: ModalService,
+    private router: Router
   ) {}
 
   public getGroupsList$ = createEffect(() => this.actions$.pipe(
@@ -78,9 +81,8 @@ export default class MainEffects {
     switchMap(() => combineLatest([
       this.mainService.getPeople(),
       this.mainService.getConverations(),
-      this.store.select(selectUserUid),
     ]).pipe(
-      map(([peopleRaw, conversationsRaw, uid]) => {
+      map(([peopleRaw, conversationsRaw]) => {
         const conversations: ConversationResponse[] = conversationsRaw.Items.map(({ companionID, id }) => ({
           id: id.S,
           companionID: companionID.S,
@@ -94,7 +96,7 @@ export default class MainEffects {
             name: name.S,
             uid: uid.S,
           })
-        ).filter((user) => user.uid !== uid);
+        );
 
         this.toastService.showToast(ToastState.success, "Success!");
 
@@ -141,6 +143,7 @@ export default class MainEffects {
     ofType(deleteGroupStart),
     switchMap(({ groupID }) => this.mainService.deleteGroup(groupID).pipe(
       map(() => {
+        this.router.navigate([ROUTES.Root]);
         this.modalService.close();
         this.toastService.showToast(ToastState.success, "Success!");
         return deleteGroupSuccess({ groupID });

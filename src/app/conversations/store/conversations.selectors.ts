@@ -19,10 +19,17 @@ export const selectLastConversationMessageDate = (props: {
   return conversationCopy[0].createdAt;
 });
 
-export const selectConversationMessages = (props: {
-  conversationID: string;
-}) => createSelector(selectConversationsState, ({ conversations }) => {
+export const selectConversationMessages = (props: { conversationID: string }) => createSelector(selectConversationsState, ({ conversations }) => {
   const { conversationID } = props;
 
-  return conversations[conversationID] || [];
+  const conversation = [...(conversations[conversationID] || [])];
+
+  conversation.sort((a, b) => +a.createdAt - +b.createdAt);
+
+  return conversation;
 });
+
+export const selectIsGroupVisited = (conversationID: string) => createSelector(
+  selectConversationsState,
+  ({ conversations }) => conversations[conversationID]
+);

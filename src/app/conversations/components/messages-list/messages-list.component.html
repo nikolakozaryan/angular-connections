@@ -1,1 +1,6 @@
-<p>messages-list works!</p>
+<section class="container" #container>
+  <div class="messages">
+    <app-message *ngFor="let message of messages" [message]="message">
+    </app-message>
+  </div>
+</section>
