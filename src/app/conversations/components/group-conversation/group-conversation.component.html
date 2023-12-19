@@ -1,0 +1,23 @@
+<div class="content">
+  <div class="conversation">
+    <header class="conversation-header">
+      <h2 class="heading">
+        <span class="back" title="Go back" routerLink="">&lt;</span>
+        <span>{{groupData?.name || ''}}</span>
+      </h2>
+
+      <div class="buttons-container">
+        <span class="timer" *ngIf="!isUpdateAvailable">0:{{timerValue}}</span>
+        <app-button outline theme="neutral" [disabled]="!isUpdateAvailable" (click)="startTimer()">Update</app-button>
+        <button class="button" (click)="deleteGroup($event)" *ngIf="groupData?.isOwner">
+          <img src="assets/icons/trash.svg" alt="trash-icon">
+        </button>
+      </div>
+    </header>
+    <app-messages-list [messages]="(messages$ | async) || []"></app-messages-list>
+    <footer class="conversation-footer">
+      <input class="input" type="text" placeholder="Type a message" [formControl]="messageControl">
+      <app-button (click)="sendMessage()" [disabled]="!messageControl.valid">Send</app-button>
+    </footer>
+  </div>
+</div>

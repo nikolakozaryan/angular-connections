@@ -1,0 +1,17 @@
+<div class="container">
+  <header class="header">
+    <h3>Create Group</h3>
+  </header>
+  <div class="input">
+    <input [ngClass]="{'input-field_error': formControl.errors && (formControl.touched || formControl.dirty)}"
+      class="input-field" [formControl]="formControl" name="email" placeholder="Group name">
+    <div class="input-error" *ngIf="formControl.errors && (formControl.touched || formControl.dirty)">
+      {{formControl.hasError('required') ? 'Group name is required.' : null}}
+      {{formControl.hasError('maxlength') ? "Group name shouldn't be longer than 30 symbols." : null}}
+      {{formControl.hasError('nameValue') ? 'Group name should contain only letters, spaces or numbers.' : null}}
+    </div>
+    <footer class="footer">
+      <app-button outline theme="neutral" (click)="closeModal()" [disabled]="loading$ | async">Cancel</app-button>
+      <app-button [disabled]="(loading$ | async) || !formControl.valid" (click)="createGroup()">Create</app-button>
+    </footer>
+  </div>

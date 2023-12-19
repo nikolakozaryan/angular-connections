@@ -1,0 +1,65 @@
+@import 'variables';
+@import 'mixins';
+
+.button {
+  border: none;
+  min-width: 7rem;
+  padding: 0.6rem 1.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.8rem;
+  cursor: pointer;
+
+  color: $font-button-color;
+  font-weight: bold;
+  font-size: 1.4rem;
+  line-height: 1.5;
+
+  transition: background, color 0.3s;
+
+  &.primary {
+    background: $primary;
+
+    &.outline {
+      @include outline-button($primary, $primary)
+    }
+  }
+
+  &.error {
+    background: $error;
+
+    &.outline {
+      @include outline-button($error, $error);
+    }
+  }
+
+  &.neutral {
+    background: $input-outline;
+
+    &.outline {
+      @include outline-button($input-outline, $font-neutral-button-color);
+
+      &:hover {}
+    }
+  }
+
+  &.disabled {
+    cursor: default  !important;
+    background: transparent !important;
+    color: $button-disabled-color !important;
+    border: 1px solid $button-disabled-color !important;
+
+    &:hover {
+      filter: none;
+    }
+  }
+}
+
+.large {
+  width: 100%;
+  padding-top: 1.2rem;
+  padding-bottom: 1.2rem;
+  font-size: 1.5rem;
+  line-height: 2.6rem;
+}

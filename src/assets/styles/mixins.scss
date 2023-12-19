@@ -1,0 +1,32 @@
+@mixin h1 {
+  font-size: 1.8rem;
+  line-height: 1.25;
+  font-weight: bold;
+}
+
+@mixin outline-button($main-color, $font-color: $font-button-color) {
+  border: 0.1rem solid $main-color;
+  color: $font-color;
+  background: transparent;
+
+  &:hover {
+    background: $main-color;
+    color: white;
+  }
+}
+
+@mixin scrollBar {
+  &::-webkit-scrollbar {
+    width: .6rem;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    width: 1rem;
+    background: $font-disabled-color;
+    border-radius: .8rem;
+  }
+}

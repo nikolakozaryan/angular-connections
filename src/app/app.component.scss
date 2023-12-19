@@ -1,0 +1,11 @@
+@import 'variables';
+
+.app-container {
+  position: relative;
+  width: 144rem;
+  height: calc(100vh - 8rem);
+  margin-left: auto;
+  margin-right: auto;
+  padding: 4rem $main-padding-x 0;
+  overflow: hidden;
+}
