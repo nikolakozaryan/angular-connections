@@ -24,6 +24,7 @@ export const {
   getPeopleSuccess,
   getPeopleFailed,
   resetMainState,
+  updateUserConversationId,
 } = createActionGroup({
   source,
   events: {
@@ -40,5 +41,9 @@ export const {
     getPeopleSuccess: props<PeopleResponse>(),
     getPeopleFailed: props<ApiErrorResponse>(),
     resetMainState: emptyProps(),
+    updateUserConversationId: props<{
+      userID: string;
+      conversationID: string;
+    }>(),
   },
 });

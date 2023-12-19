@@ -12,6 +12,7 @@ import {
   getGroupsSuccess,
   getPeopleSuccess,
   resetMainState,
+  updateUserConversationId,
 } from "./main.actions";
 
 export interface MainState {
@@ -64,6 +65,10 @@ const mainReducer = createReducer(
     };
   }),
   on(deleteGroupFailed, (state) => ({ ...state, loading: false })),
+  on(updateUserConversationId, (state, { conversationID, userID }) => ({
+    ...state,
+    people: state.people.map((user) => (user.uid === userID ? { ...user, conversationID } : user)),
+  })),
   on(resetMainState, () => initialState)
 );
 

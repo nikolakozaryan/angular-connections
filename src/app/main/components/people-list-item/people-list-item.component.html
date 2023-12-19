@@ -1,3 +1,3 @@
-<li [routerLink]="getConversationRoute()" class="item" [ngClass]="{'with-conversation': userData.conversationID}">
+<li (click)="resolveRoute()" class="item" [ngClass]="{'with-conversation': userData.conversationID}">
   <span>{{userData.name}}</span>
 </li>
